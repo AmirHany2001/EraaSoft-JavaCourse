@@ -19,7 +19,7 @@ public class AccountValidationImplementation implements AccountValidationService
 
     @Override
     public boolean checkPhoneNumber(String phoneNumber , EWallet eWallet) {
-        return phoneNumber.length() == 13 && phoneNumber.startsWith("+20")
+        return phoneNumber.matches("\\+2\\d{11}")
                 && !eWallet.isPhoneNumberTaken(phoneNumber);
     }
 

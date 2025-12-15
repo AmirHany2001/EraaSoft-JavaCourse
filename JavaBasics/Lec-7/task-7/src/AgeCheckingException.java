@@ -1,6 +1,5 @@
-public class AgeCheckingException extends RuntimeException {
+public class AgeCheckingException extends Exception {
 
-    public String message;
 
     public AgeCheckingException(String message) {
         super(message);

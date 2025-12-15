@@ -6,6 +6,7 @@ import service.AccountService;
 import model.EWallet;
 
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AccountImplementation implements AccountService {
@@ -59,19 +60,25 @@ public class AccountImplementation implements AccountService {
         int amount , trial = 3;
 
         while (trial > 0){
-            System.out.println("Please enter your amount ");
-            amount = scanner.nextInt();
-            scanner.nextLine();
-            if (amount > 0) {
-                account.addBalance(amount);
-                System.out.println("Your account new balance after the deposit is " + account.getBalance());
-                account.addHistory(new History.Builder().setAmount(amount)
-                        .setOperation("deposit").setName(account.getName()).build());
-                break;
-            }
-            else{
+            try{
+                System.out.println("Please enter your amount ");
+                amount = scanner.nextInt();
+                scanner.nextLine();
+                if (amount > 0) {
+                    account.addBalance(amount);
+                    System.out.println("Your account new balance after the deposit is " + account.getBalance());
+                    account.addHistory(new History.Builder().setAmount(amount)
+                            .setOperation("deposit").setName(account.getName()).build());
+                    break;
+                }
+                else{
+                    System.out.println("Not Valid Amount");
+                    trial--;
+                }
+            }catch (InputMismatchException e){
                 System.out.println("Not Valid Amount");
                 trial--;
+                scanner.nextLine();
             }
         }
         if(trial == 0){
@@ -84,19 +91,25 @@ public class AccountImplementation implements AccountService {
         int amount = 0 , trial = 3;
 
         while(trial > 0){
-            System.out.println("Please enter your amount ");
-            amount = scanner.nextInt();
-            scanner.nextLine();
-            if ( amount > 0 && account.getBalance() >= amount) {
-                account.getMoney(amount);
-                System.out.println("Your account new balance after the withdraw is " + account.getBalance());
-                account.addHistory(new History.Builder().setAmount(amount)
-                        .setOperation("withdraw").setName(account.getName()).build());
-                break;
-            }
-            else{
-                System.out.println("Not Valid Amount or Not Enough Balance");
+            try{
+                System.out.println("Please enter your amount ");
+                amount = scanner.nextInt();
+                scanner.nextLine();
+                if ( amount > 0 && account.getBalance() >= amount) {
+                    account.getMoney(amount);
+                    System.out.println("Your account new balance after the withdraw is " + account.getBalance());
+                    account.addHistory(new History.Builder().setAmount(amount)
+                            .setOperation("withdraw").setName(account.getName()).build());
+                    break;
+                }
+                else{
+                    System.out.println("Not Valid Amount or Not Enough Balance");
+                    trial--;
+                }
+            }catch (InputMismatchException e){
+                System.out.println("Not Valid Amount");
                 trial--;
+                scanner.nextLine();
             }
         }
         if(trial == 0){
@@ -122,18 +135,24 @@ public class AccountImplementation implements AccountService {
     public int transferWithdraw(Account senderAccount , int money) {
         int amount  , trial = 3;
         while(trial > 0){
-            System.out.println("Please enter your amount ");
-            amount = scanner.nextInt();
-            scanner.nextLine();
-            if ( amount > 0 && senderAccount.getBalance() >= amount) {
-                senderAccount.getMoney(amount);
-                money = amount;
-                System.out.println("Your account new balance after the transferWithdraw is " + senderAccount.getBalance());
-                break;
-            }
-            else{
-                System.out.println("Not Valid Amount or Not Enough Balance");
+            try{
+                System.out.println("Please enter your amount ");
+                amount = scanner.nextInt();
+                scanner.nextLine();
+                if ( amount > 0 && senderAccount.getBalance() >= amount) {
+                    senderAccount.getMoney(amount);
+                    money = amount;
+                    System.out.println("Your account new balance after the transferWithdraw is " + senderAccount.getBalance());
+                    break;
+                }
+                else{
+                    System.out.println("Not Valid Amount or Not Enough Balance");
+                    trial--;
+                }
+            }catch (InputMismatchException e){
+                System.out.println("Not Valid Amount");
                 trial--;
+                scanner.nextLine();
             }
         }
         if (trial == 0){
@@ -150,19 +169,25 @@ public class AccountImplementation implements AccountService {
         int trial = 3;
 
         while(trial > 0){
-            System.out.println("Please enter the account name that you want to send money to ");
-            name = scanner.nextLine();
+            try{
+                System.out.println("Please enter the account name that you want to send money to ");
+                name = scanner.nextLine();
 
-            if(accountValidationImplementation.isUsernameExist(name,eWallet) && !senderAccount.getName().equals(name)){
-                account = eWallet.getAccountByUsername(name);
-                account.addBalance(money);
-                System.out.println("Your account new balance after the transferDeposit is " + account.getBalance());
-                account.addHistory(new History.Builder().setAmount(money)
-                        .setOperation("Received money").setName(account.getName()).build());
-                break;
+                if(accountValidationImplementation.isUsernameExist(name,eWallet) && !senderAccount.getName().equals(name)){
+                    account = eWallet.getAccountByUsername(name);
+                    account.addBalance(money);
+                    System.out.println("Your account new balance after the transferDeposit is " + account.getBalance());
+                    account.addHistory(new History.Builder().setAmount(money)
+                            .setOperation("Received money").setName(account.getName()).build());
+                    break;
+                }
+                System.out.println(" Username does not exist .... you can't send money to yourself ");
+                trial--;
+            }catch (InputMismatchException e){
+                System.out.println("Not Valid Amount");
+                trial--;
+                scanner.nextLine();
             }
-            System.out.println(" Username does not exist .... you can't send money to yourself ");
-            trial--;
         }
         if(trial == 0){
             System.out.println("Invalid operation");
@@ -315,9 +340,10 @@ public class AccountImplementation implements AccountService {
         String phoneNumber = null;
 
         while (trial > 0) {
+
             System.out.println("Please enter your phone:");
             phoneNumber = scanner.nextLine().trim();
-            phoneNumber = "+2" + phoneNumber ;  // add country code
+            phoneNumber = "+2" + phoneNumber ;
 
             if (!accountValidationImplementation.checkPhoneNumber(phoneNumber, eWallet)) {
                 System.out.println("Invalid phone number!");
@@ -335,16 +361,22 @@ public class AccountImplementation implements AccountService {
         int trial = 3;
         int age = 0;
         while (trial > 0) {
-            System.out.println("Please enter your age:");
-            age = scanner.nextInt();
-            scanner.nextLine();
+            try{
+                System.out.println("Please enter your age:");
+                age = scanner.nextInt();
+                scanner.nextLine();
 
-            if (!accountValidationImplementation.checkAge(age)) {
-                System.out.println("Invalid age! Must be ≥ 18.");
+                if (!accountValidationImplementation.checkAge(age)) {
+                    System.out.println("Invalid age! Must be ≥ 18.");
+                    trial--;
+                    continue;
+                }
+                break;
+            }catch (InputMismatchException e){
+                System.out.println("Invalid age!");
                 trial--;
-                continue;
+                scanner.nextLine();
             }
-            break;
         }
         checkTrials(trial , app);
         return age;
@@ -411,5 +443,7 @@ public class AccountImplementation implements AccountService {
     public void showOperationHistory(Account account){
         System.out.println(account.getHistory());
     }
+
+
 
 }
