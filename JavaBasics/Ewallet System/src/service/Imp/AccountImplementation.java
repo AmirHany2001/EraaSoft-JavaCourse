@@ -76,7 +76,7 @@ public class AccountImplementation implements AccountService {
                     trial--;
                 }
             }catch (InputMismatchException e){
-                System.out.println("Not Valid Amount");
+                System.out.println("Not Valid Amount .. try again");
                 trial--;
                 scanner.nextLine();
             }
@@ -88,7 +88,7 @@ public class AccountImplementation implements AccountService {
 
     @Override
     public void withdraw(Account account) {
-        int amount = 0 , trial = 3;
+        int amount, trial = 3;
 
         while(trial > 0){
             try{
@@ -107,7 +107,7 @@ public class AccountImplementation implements AccountService {
                     trial--;
                 }
             }catch (InputMismatchException e){
-                System.out.println("Not Valid Amount");
+                System.out.println("Not Valid Amount .. try again");
                 trial--;
                 scanner.nextLine();
             }
@@ -119,12 +119,11 @@ public class AccountImplementation implements AccountService {
 
     @Override
     public void transfer(Account senderAccount) {
-         int money = 0 , flag;
+         int money = 0 ;
          money = transferWithdraw(senderAccount,money);
 
          if(money > 0){
-             flag = transferDeposit(money , senderAccount);
-             if(flag > 0){
+             if(transferDeposit(money , senderAccount)){
                  senderAccount.addHistory(new History.Builder().setAmount(money)
                          .setOperation("Sent money").setName(senderAccount.getName()).build());
              }
@@ -150,7 +149,7 @@ public class AccountImplementation implements AccountService {
                     trial--;
                 }
             }catch (InputMismatchException e){
-                System.out.println("Not Valid Amount");
+                System.out.println("Not Valid Amount .. try again");
                 trial--;
                 scanner.nextLine();
             }
@@ -164,7 +163,7 @@ public class AccountImplementation implements AccountService {
     }
 
     @Override
-    public int transferDeposit(int money ,  Account senderAccount) {
+    public boolean transferDeposit(int money ,  Account senderAccount) {
         String name ;
         int trial = 3;
 
@@ -184,7 +183,7 @@ public class AccountImplementation implements AccountService {
                 System.out.println(" Username does not exist .... you can't send money to yourself ");
                 trial--;
             }catch (InputMismatchException e){
-                System.out.println("Not Valid Amount");
+                System.out.println("Not Valid Amount .. try again");
                 trial--;
                 scanner.nextLine();
             }
@@ -193,8 +192,9 @@ public class AccountImplementation implements AccountService {
             System.out.println("Invalid operation");
             senderAccount.addBalance(money);
             System.out.println("The sender balance returns to " +  senderAccount.getBalance());
+            return false;
         }
-        return trial;
+        return true;
     }
 
     @Override
@@ -358,8 +358,7 @@ public class AccountImplementation implements AccountService {
 
     @Override
     public int  signUpAge(ApplicationImplementation app){
-        int trial = 3;
-        int age = 0;
+        int trial = 3 , age = 0;
         while (trial > 0) {
             try{
                 System.out.println("Please enter your age:");
@@ -373,7 +372,7 @@ public class AccountImplementation implements AccountService {
                 }
                 break;
             }catch (InputMismatchException e){
-                System.out.println("Invalid age!");
+                System.out.println("Invalid age! .. try again");
                 trial--;
                 scanner.nextLine();
             }

@@ -30,7 +30,7 @@ public interface AccountService {
      void showDataWithOutPassword(Account account);
 
     int transferWithdraw(Account SenderAccount , int money);
-    int transferDeposit(int money , Account SenderAccount );
+    boolean transferDeposit(int money , Account SenderAccount );
 
     void showOperationHistory(Account account);
 
