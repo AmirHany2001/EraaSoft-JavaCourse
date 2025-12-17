@@ -11,7 +11,7 @@ public interface AccountService {
      void deposit(Account account);
      void withdraw(Account account) ;
      void transfer(Account account) ;
-     void deleteAccount(Account account) ;
+     void deleteAccount(Account account , ApplicationImplementation app) ;
      void logout(ApplicationImplementation app ,  Account account);
      void showAccountDetails(Account account);
 
@@ -33,4 +33,10 @@ public interface AccountService {
     boolean transferDeposit(int money , Account SenderAccount );
 
     void showHistory(Account account);
+
+    void adminDeleteAccount();
+    void adminLogout(ApplicationImplementation app);
+    void adminShowAccountDetails();
+    void adminShowAccountHistory();
+    void adminAnotherService(Account account , ApplicationImplementation app);
 }

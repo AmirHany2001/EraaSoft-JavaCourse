@@ -25,6 +25,10 @@ public class AccountImplementation implements AccountService {
         accountName = loginName(app);
         account = loginPassword(accountName , app);
 
+        if(account != null && account.getName().equals("admin")) {
+             app.startAdminFeatures(account);
+        }
+
         if (account != null) {
             account.addHistory(new History.Builder().setOperation("newLogin").setName(account.getName())
                     .setTime(LocalTime.now()).setDate(LocalDate.now()).build());
@@ -219,9 +223,10 @@ public class AccountImplementation implements AccountService {
     }
 
     @Override
-    public void deleteAccount(Account account) {
+    public void deleteAccount(Account account , ApplicationImplementation app) {
         eWallet.deleteAccount(account);
         System.out.println("Your account has been deleted successfully");
+        app.startApplication();
     }
 
     @Override
@@ -283,10 +288,10 @@ public class AccountImplementation implements AccountService {
     public  void changePassword(Account account) {
         int trial = 3;
         String oldPassword , newPassword ;
+        System.out.println("Please enter your old password");
+        oldPassword = scanner.nextLine();
 
         while (trial > 0){
-            System.out.println("Please enter your old password");
-            oldPassword = scanner.nextLine();
             if(account.getPassword().equals(oldPassword)){
                 System.out.println("please enter your new password");
                 newPassword = scanner.nextLine();
@@ -308,6 +313,9 @@ public class AccountImplementation implements AccountService {
             else{
                 System.out.println("Passwords do not match!");
                 trial--;
+
+                System.out.println("Please enter your old password");
+                oldPassword = scanner.nextLine();
                 continue;
             }
             break;
@@ -469,6 +477,85 @@ public class AccountImplementation implements AccountService {
         System.out.println(account.getHistory().reversed());
     }
 
+    @Override
+    public void adminDeleteAccount(){
+        int trial = 3;
+        String accountName ;
+        while(trial > 0) {
+            System.out.println(" Enter account name you want to delete: ");
+            accountName = scanner.nextLine();
+            if (!accountValidationImplementation.isUsernameExist(accountName, eWallet) || accountName.equals("admin")) {
+                System.out.println(" Username does not exist!");
+                trial--;
+                continue;
+            }
+            account = eWallet.getAccountByUsername(accountName);
+            eWallet.deleteAccount(account);
+            System.out.println("Account deleted successfully!");
+            break;
+        }
+        if (trial == 0) {
+            System.out.println("You have tried 3 times .. no accounts have been deleted ");
+        }
+    }
 
+    @Override
+    public void adminLogout(ApplicationImplementation app){
+        System.out.println("See you Later :)");
+        app.startApplication();
+    }
+
+    @Override
+    public void adminShowAccountDetails() {
+        int trial = 3;
+        String accountName ;
+        while(trial > 0) {
+            System.out.println("Enter account name you want to show its details: ");
+            accountName = scanner.nextLine();
+            if(!accountValidationImplementation.isUsernameExist(accountName, eWallet) || accountName.equals("admin")) {
+                System.out.println(" Username does not exist!");
+                trial--;
+                continue;
+            }
+            account = eWallet.getAccountByUsername(accountName);
+            showDataWithOutPassword(account);
+            System.out.println("The password of the account you want to show is: " + " " + account.getPassword());
+            break;
+        }
+        if (trial == 0) {
+            System.out.println("You have tried 3 times .. no accounts have been shown ");
+        }
+    }
+
+    @Override
+    public void adminShowAccountHistory() {
+        int trial = 3;
+        String accountName ;
+        while(trial > 0) {
+            System.out.println("Enter account name you want to show its history: ");
+            accountName = scanner.nextLine();
+            if(!accountValidationImplementation.isUsernameExist(accountName, eWallet) || accountName.equals("admin")) {
+                System.out.println(" Username does not exist!");
+                trial--;
+                continue;
+            }
+            account = eWallet.getAccountByUsername(accountName);
+            showHistory(account);
+            break;
+        }
+        if (trial == 0) {
+            System.out.println("You have tried 3 times .. no accounts have been shown ");
+        }
+    }
+
+    @Override
+    public void adminAnotherService(Account account ,  ApplicationImplementation app){
+        System.out.println("Do you want to another service?" + "\n" + "yes or no ");
+        String ans = scanner.nextLine();
+        if( ans.equalsIgnoreCase("yes") ){
+            app.startAdminFeatures(account);
+        }
+        adminLogout(app);
+    }
 
 }

@@ -43,9 +43,10 @@ public class EWallet {
                 .findFirst().orElse(null);
     }
 
+
     public boolean isPhoneNumberTaken(String phone) {
         return accounts.stream()
-                .anyMatch(account -> account.getPhoneNumber().equals(phone));
+                .anyMatch(account -> phone.equals(account.getPhoneNumber()));
     }
 
 
