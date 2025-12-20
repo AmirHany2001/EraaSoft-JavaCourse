@@ -20,7 +20,7 @@ public class History {
         this.date = builder.date;
     }
 
-
+    @Override
     public String toString() {
         return "History{" +
                 "  name = '" + name + "'\n" +
