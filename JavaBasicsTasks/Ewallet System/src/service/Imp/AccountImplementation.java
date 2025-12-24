@@ -26,7 +26,7 @@ public class AccountImplementation implements AccountService {
         account = loginPassword(accountName , app);
 
         if(account != null && account.getName().equals("admin")) {
-             app.startAdminFeatures(account);
+            app.startAdminFeatures(account);
         }
 
         if (account != null) {
@@ -80,8 +80,8 @@ public class AccountImplementation implements AccountService {
                 if (amount > 0) {
                     account.addBalance(amount);
                     System.out.println("Your account new balance after the deposit is " + account.getBalance());
-                    account.addHistory(new History.Builder().setAmount(amount).setTime(LocalTime.now())
-                            .setDate(LocalDate.now()).setOperation("deposit")
+                    account.addHistory(new History.Builder().setTime(LocalTime.now())
+                            .setDate(LocalDate.now()).setOperation("deposit with amount " + amount)
                             .setName(account.getName()).build());
                     break;
                 }
@@ -115,7 +115,7 @@ public class AccountImplementation implements AccountService {
                 if ( amount > 0 && account.getBalance() >= amount) {
                     account.getMoney(amount);
                     System.out.println("Your account new balance after the withdraw is " + account.getBalance());
-                    account.addHistory(new History.Builder().setAmount(amount).setOperation("withdraw")
+                    account.addHistory(new History.Builder().setOperation("withdraw with amount " + amount)
                             .setName(account.getName()).setDate(LocalDate.now())
                             .setTime(LocalTime.now()).build());
                     break;
@@ -140,16 +140,16 @@ public class AccountImplementation implements AccountService {
 
     @Override
     public void transfer(Account senderAccount) {
-         int money = 0 ;
-         money = transferWithdraw(senderAccount,money);
+        int money = 0 ;
+        money = transferWithdraw(senderAccount,money);
 
-         if(money > 0){
-             if(transferDeposit(money , senderAccount)){
-                 senderAccount.addHistory(new History.Builder().setAmount(money).setOperation("sentMoney")
-                         .setName(senderAccount.getName()).setTime(LocalTime.now())
-                         .setDate(LocalDate.now()).build());
-             }
-         }
+        if(money > 0){
+            if(transferDeposit(money , senderAccount)){
+                senderAccount.addHistory(new History.Builder().setOperation("transfer with amount " + money)
+                        .setName(senderAccount.getName()).setTime(LocalTime.now())
+                        .setDate(LocalDate.now()).build());
+            }
+        }
     }
 
     @Override
@@ -178,7 +178,7 @@ public class AccountImplementation implements AccountService {
         }
         if (trial == 0){
             System.out.println("Invalid operation");
-            senderAccount.addHistory(new History.Builder().setOperation("failedSentMoney")
+            senderAccount.addHistory(new History.Builder().setOperation("failedTransfer")
                     .setName(senderAccount.getName()).setTime(LocalTime.now())
                     .setDate(LocalDate.now()).build());
             return 0;
@@ -200,8 +200,9 @@ public class AccountImplementation implements AccountService {
                     account = eWallet.getAccountByUsername(name);
                     account.addBalance(money);
                     System.out.println("Your account new balance after the transferDeposit is " + account.getBalance());
-                    account.addHistory(new History.Builder().setAmount(money)
-                            .setOperation("Received money").setName(account.getName())
+                    account.addHistory(new History.Builder()
+                            .setOperation("Receive money from " + senderAccount.getName() + " with amount " + money)
+                            .setName(account.getName())
                             .setTime(LocalTime.now()).setDate(LocalDate.now()).build());
                     break;
                 }

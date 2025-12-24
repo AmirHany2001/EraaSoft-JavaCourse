@@ -3,6 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+* Using singleton design pattern
+*
+*/
+
 public class EWallet {
     private final String name = "EraaSoft EWallet";
     private List<Account> accounts = new ArrayList<>();

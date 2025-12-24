@@ -3,11 +3,14 @@ package model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/*
+ * Using Builder design Pattern
+ */
+
 public class History {
 
     private final String name;
     private final String operation;
-    private final int amount;
     private final LocalTime time;
     private final LocalDate date;
 
@@ -15,7 +18,6 @@ public class History {
     private History(Builder builder) {
         this.name = builder.name;
         this.operation = builder.operation;
-        this.amount = builder.amount;
         this.time = builder.time;
         this.date = builder.date;
     }
@@ -25,7 +27,6 @@ public class History {
         return "History{" +
                 "  name = '" + name + "'\n" +
                 "  operation = '" + operation + "'\n" +
-                "  amount = " + amount + "\n" +
                 "  time = " + time.withNano(0) + "\n" +
                 "  date = " + date + "\n" +
                 "}";
@@ -34,7 +35,6 @@ public class History {
     public static class Builder {
         private String name;
         private String operation;
-        private int amount;
         private LocalTime time;
         private LocalDate date;
 
@@ -45,11 +45,6 @@ public class History {
 
         public Builder setOperation(String operation) {
             this.operation = operation;
-            return this;
-        }
-
-        public Builder setAmount(int amount) {
-            this.amount = amount;
             return this;
         }
 

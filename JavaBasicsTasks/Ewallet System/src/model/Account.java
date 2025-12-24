@@ -4,6 +4,10 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+*   Using Builder design pattern
+*/
+
 public class Account {
     private final String name;
     private String password;
