@@ -1,0 +1,36 @@
+
+ROWNUM is assigned row by row as rows are fetched, before the WHERE clause is applied.
+
+Step-by-step what happens:
+
+Oracle reads the first row
+
+Assigns ROWNUM = 1
+
+Checks the condition:
+rownum = 2 → ❌ false
+→ row is discarded
+
+Since the first row was discarded, Oracle never reaches row 2
+
+➡️ Therefore, ROWNUM = 2 can never be true in a direct WHERE clause.
+
+
+
+
+Correct way to get row number 2
+✅ Use a subquery
+
+select name, rn
+from (
+    select name, rownum rn
+    from employees
+)
+where rn = 2;
+
+
+✔ This works because:
+
+ROWNUM is assigned first
+
+Then filtered using the alias rn
