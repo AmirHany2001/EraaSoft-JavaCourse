@@ -1,3 +1,5 @@
+-- mysql code not oracle
+
 create table Doctor(
 id int AUTO_INCREMENT primary key ,
 name varchar(255) not null,

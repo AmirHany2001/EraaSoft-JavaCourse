@@ -1,3 +1,5 @@
+-- mysql code not oracle
+
 create table employees (
     employee_id    int(6) primary key,
     first_name     varchar(20),

@@ -1,3 +1,5 @@
+-- mysql code not oracle
+
 create table Employees (
     EmployeeID int AUTO_INCREMENT primary key,
     FirstName varchar(50) not null,

@@ -1,3 +1,5 @@
+-- mysql code not oracle
+
 select first_name , employee_id  from employees where employee_id <= 105 ;
 select first_name , employee_id  from employees where employee_id in (151 , 152, 153, 154 , 155);
 select first_name , employee_id  from employees where first_name like 'p%';
