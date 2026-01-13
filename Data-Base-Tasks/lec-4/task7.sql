@@ -118,9 +118,10 @@ from status_log;
 
 select
        case
-           when 0 = 0 then 'out of stock'
+           when product_quantity = 0 then 'out of stock'
            else 'available'
-       end as stock_status;
+       end as stock_status
+from product;
 
 select dept_name,
        case dept_name

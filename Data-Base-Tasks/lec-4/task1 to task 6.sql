@@ -26,14 +26,16 @@ select replace('database','a','@');
 
 select replace('this is old version','old','new');
 
+
 create table product (
-    product_name varchar(50)
+    product_name varchar(50),
+    product_quantity int
 );
 
 insert into product values
-('laptop'),
-('mouse'),
-('keyboard');
+('laptop' , 1),
+('mouse' , 0),
+('keyboard' , 10);
 
 select lpad(product_name,15,'*') from product;
 
