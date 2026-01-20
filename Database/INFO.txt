@@ -1,0 +1,6 @@
+            .xml file
+
+	    username="root"
+            password="amer5047686"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/lec-4"

@@ -52,6 +52,7 @@ create table students (
     score int
 );
 
+
 insert into students values
 ('ahmed', 95),
 ('mona', 85),

@@ -4,28 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af27705c-2f9e-47f9-b761-737a4e14abab" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Java Ewallet System2.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/OOP-Project.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/src/Main/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/src/model/Account.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/src/model/EWallet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/src/model/History.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/src/service/AccountService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/src/service/AccountValidationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/src/service/ApplicationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/src/service/Imp/AccountImplementation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/src/service/Imp/AccountValidationImplementation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/src/service/Imp/ApplicationImplementation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projects/Java Ewallet System/tasks.txt" beforeDir="false" />
-    </list>
+    <list default="true" id="af27705c-2f9e-47f9-b761-737a4e14abab" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +18,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
