@@ -288,7 +288,7 @@ public class UserUI {
 
                 System.out.println("Enter your Password");
                 password = scanner.nextLine();
-                account =  accountImplementation.loginPassword(password , accountName);
+                account =  accountImplementation.loginPassword(password , accoun    tName);
 
                 if(account.getName().equals("admin")){
                     return eWallet.getAccountByUsername("admin");
