@@ -10,6 +10,7 @@ totalNumber varchar(60) not null,
 constraint uq_name unique (name)
 );
 truncate table Items;
+truncate table Users;
 drop table items;
 
 alter table items drop constraint uq_name;
