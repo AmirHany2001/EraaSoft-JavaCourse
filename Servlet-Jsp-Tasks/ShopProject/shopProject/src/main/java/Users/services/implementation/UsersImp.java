@@ -128,6 +128,54 @@ public class UsersImp implements userServices{
 		return email.matches(regex);
 	}
 
+	@Override
+	public boolean deleteAccount(int id) {
+		String query = "DELETE FROM Users WHERE id = ?";
+		try(Connection connection = db.getConnection();
+		        PreparedStatement stmt = connection.prepareStatement(query)){
+	
+			stmt.setInt(1,id);
+	        int rowsdeleted = stmt.executeUpdate();
+	        return rowsdeleted > 0;
+	        
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean getPassword(String password , int id) {
+		String query = "SELECT * FROM Users WHERE id = ? and password = ?";
+		try(Connection connection = db.getConnection();
+		        PreparedStatement stmt = connection.prepareStatement(query)) {
+				stmt.setInt(1, id);
+				stmt.setString(2, password);
+				ResultSet resultSet = stmt.executeQuery();
+			return resultSet.next();
+				
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return false;
+	}
+
+	@Override
+	public boolean changePassword(int id, String password) {
+		String query = "update Users set password = ? where id = ?";
+		try(Connection connection = db.getConnection();
+		        PreparedStatement stmt = connection.prepareStatement(query)){
+			stmt.setString(1,password);
+			stmt.setInt(2,id);
+
+	        int rowsInserted = stmt.executeUpdate();	
+	        return rowsInserted > 0;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }
 
 

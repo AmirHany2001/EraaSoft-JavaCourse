@@ -13,7 +13,10 @@ public interface userServices {
 	
 	boolean checkpassword(String confirmPW , String password);
 	boolean checkEmail(String email);
-	 
+	
+	boolean deleteAccount(int id);
+	boolean getPassword(String password , int id);
+	boolean changePassword(int id , String password);
 	
 	boolean addingData(String firstName , String  lastName , String userName ,String email ,String password );
 	

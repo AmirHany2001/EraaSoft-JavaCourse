@@ -81,6 +81,8 @@ public class ItemsController extends HttpServlet {
 	}
 	
 	
+	
+	
 	private void addItems(HttpServletRequest request, HttpServletResponse response , ItemsImp item) {
 		
 		String name = request.getParameter("name");
@@ -127,14 +129,34 @@ public class ItemsController extends HttpServlet {
 	
 	
 	
-	private void getItem(HttpServletRequest request, HttpServletResponse response , ItemsImp item) {
+	private void getItem(HttpServletRequest request, HttpServletResponse response , ItemsImp item) throws IOException {
 		
+		
+		HttpSession session = request.getSession(false);
+		if (session == null || session.getAttribute("userId") == null) {
+		    try {
+		    	response.sendRedirect(request.getContextPath() + "/UsersView/loginUsers.jsp");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		    return;
+		}
 		
 		int id = Integer.parseInt(request.getParameter("id"));
 		
 		Items itemNew = item.getItem(id);
 		
+		if(itemNew == null) {
+			session.setAttribute("flashType", "error");
+			request.getSession().setAttribute("flashMessage", "Something Went Wrong");
+			response.sendRedirect(request.getContextPath() + "/ItemsController");
+			return;
+		}
+		
+		System.out.println(id);
+		
 		request.setAttribute("item", itemNew);
+		session.setAttribute("itemId", id);
 		try {
 			request.getRequestDispatcher("/ItemsView/updateItems.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
@@ -143,6 +165,9 @@ public class ItemsController extends HttpServlet {
 		return;
 	
 	}
+	
+	
+	
 	
 	private void removeItem(HttpServletRequest request, HttpServletResponse response,ItemsImp item) {
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -182,13 +207,8 @@ public class ItemsController extends HttpServlet {
 	
 	
 	private void updateItem(HttpServletRequest request, HttpServletResponse response , ItemsImp item) {
-		int id = Integer.parseInt(request.getParameter("id"));
-		String updatedName = request.getParameter("updatedName");
-		String price = request.getParameter("price");
-		String totalNumber = request.getParameter("totalNumber");
-
 		
-				
+	
 		HttpSession session = request.getSession(false);
 		if (session == null || session.getAttribute("userId") == null) {
 		    try {
@@ -198,6 +218,12 @@ public class ItemsController extends HttpServlet {
 			}
 		    return;
 		}
+		
+		String updatedName = request.getParameter("updatedName");
+		String price = request.getParameter("price");
+		String totalNumber = request.getParameter("totalNumber");
+		int id  = (int) session.getAttribute("itemId");
+		
 		
 		
 		try {

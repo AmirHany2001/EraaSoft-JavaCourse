@@ -216,9 +216,9 @@
 <div id="sidePanel" class="side-panel">
     <button class="close-btn" onclick="togglePanel()">×</button>
     <h2>User Settings</h2>
-    <a href="${pageContext.request.contextPath}/UserController?action=changeUsername">Change Username</a>
-    <a href="${pageContext.request.contextPath}/UserController?action=changePassword">Change Password</a>
+    <a href="${pageContext.request.contextPath}//UsersView/changePassword.jsp">Change Password</a>
     <a href="${pageContext.request.contextPath}/UserController?action=logout">Logout</a>
+    <a href="${pageContext.request.contextPath}/UserController?action=deleteAccount">Delete Account</a>
 </div>
 
 <!-- Toggle Button -->

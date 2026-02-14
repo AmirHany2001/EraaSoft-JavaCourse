@@ -325,7 +325,7 @@ form {
 .form-row .input-data:nth-child(2) { animation-delay: 0.2s; }
 .form-row .input-data:nth-child(3) { animation-delay: 0.3s; }
 .button { animation: fadeInUp 0.6s ease-out 0.4s forwards; opacity: 0; }
-.back { animation: fadeInUp 0.6s ease-out 0.5s forwards; opacity: 0; }
+.back { animation: fadeInUp 0.6s ease-out 0.5s forwards; opacity: 0; } 
 
 /* Focus styles */
 .input-data input:focus {
@@ -361,6 +361,25 @@ form {
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
+.password-field {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #666;
+    user-select: none;
+}
+
+.toggle-password:hover {
+    color: #3498db;
+}
+
 
 @keyframes spin {
     to { transform: rotate(360deg); }
@@ -371,40 +390,47 @@ form {
 <!-- partial:index.partial.html -->
 <div class="container">
   <div class="text">
-    Update Item
+    Change Password
   </div>
-<form id="updateItem" action="/shopProject/ItemsController" method="POST">
+<form id="changePassword" action="${pageContext.request.contextPath}/UserController" method="POST">
+
+    <!-- Row 1 -->
     <div class="form-row">    
-        <div class="input-data">
-            <input type="text" id="name" name="name" value="${item.name}" readonly>
-            <div class="underline"></div>
-        </div>
-        <div class="input-data">
-            <input type="text" id="updatedName" required name="updatedName">
-            <div class="underline"></div>
-            <label>UpdatedName</label>
-        </div>
-			<div class="input-data">
-		    <input type="number" id="price" name="price" value="${item.price}" required step="0.01" min="0">
+		<div class="input-data password-field">
+		    <input type="password" name="password" required>
+		    <span class="toggle-password" onclick="this.previousElementSibling.type =
+                      this.previousElementSibling.type === 'password' ? 'text' : 'password'">👀</span>
 		    <div class="underline"></div>
-		    <label>PRICE</label>
+		    <label>Current Password</label>
 		</div>
-	
-	    </div>
-	
-	    <div class="form-row">
-	        <div class="input-data">
-	            <input type="number" id="totalNumber" name="totalNumber" value="${item.totalNumbers}" required>
-	            <div class="underline"></div>
-	            <label>Total Number</label>
-	        </div>
-	
-	        <!-- Correct hidden inputs --> 
-	        <input type="hidden" name="action" value="updateItem">
+		
+		<div class="input-data password-field">
+		    <input type="password" name="newPassword" required>
+		    <span class="toggle-password" onclick="this.previousElementSibling.type =
+                      this.previousElementSibling.type === 'password' ? 'text' : 'password'">👀</span>
+		    <div class="underline"></div>
+		    <label>New Password</label>
+		</div>
     </div>
+
+    <!-- Row 2 -->
+    <div class="form-row">
+		<div class="input-data password-field">
+		    <input type="password" name="confirmPassword" required>
+		    <span class="toggle-password" onclick="this.previousElementSibling.type =
+                      this.previousElementSibling.type === 'password' ? 'text' : 'password'">👀</span>
+		    <div class="underline"></div>
+		    <label>Confirm Password</label>
+		</div>
+    </div>
+
+    <!-- Hidden action only -->
+    <input type="hidden" name="action" value="changePassword">
 
     <input type="submit" value="Update" class="button">
 </form>
+
+
 
 
   <p class="back">
@@ -415,3 +441,9 @@ form {
 
 </body>
 </html>
+
+
+
+
+
+
